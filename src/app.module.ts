@@ -1,13 +1,11 @@
 import { Module, ValidationPipe } from '@nestjs/common';
 import { APP_PIPE } from '@nestjs/core';
-import { NotificationsController } from './notifications.controller';
-import { PrismaService } from './prisma.service';
+import { DatabaseModule } from './infra/database/database.module';
+import { HttpModule } from './infra/http/http.module';
 
 @Module({
-  imports: [],
-  controllers: [NotificationsController],
+  imports: [DatabaseModule, HttpModule],
   providers: [
-    PrismaService,
     {
       provide: APP_PIPE,
       useClass: ValidationPipe,
