@@ -1,7 +1,7 @@
-import { Notification } from 'src/app/entities/notification.entity';
-import { SendNotification } from './../../app/use-cases/send-notification.service';
+import { Notification } from '@app/entities/notification.entity';
+import { SendNotification } from '@app/use-cases/send-notification.service';
+import { CreateNotificationDto } from '@infra/http/dtos/create-notification.dto';
 import { Body, Controller, Post } from '@nestjs/common';
-import { CreateNotificationDto } from '../create-notification.dto';
 
 @Controller('notifications')
 export class NotificationsController {

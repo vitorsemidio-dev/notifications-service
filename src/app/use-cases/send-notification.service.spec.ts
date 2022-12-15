@@ -1,6 +1,6 @@
-import { InMemoryNotificationsRepository } from '../../test/repositories/in-memory-notifications.repository';
-import { NotificationsRepository } from '../repositories/notifications.repository';
-import { SendNotification } from './send-notification.service';
+import { NotificationsRepository } from '@app/repositories/notifications.repository';
+import { SendNotification } from '@app/use-cases/send-notification.service';
+import { InMemoryNotificationsRepository } from '@test/repositories/in-memory-notifications.repository';
 
 const makeNotificationsRepository = (): NotificationsRepository => {
   const notificationsRepository = new InMemoryNotificationsRepository();

@@ -1,6 +1,9 @@
-import { Replace } from 'src/helpers/replace';
-import { Content } from './content';
-import { Notification, NotificationProps } from './notification.entity';
+import { Content } from '@app/entities/content';
+import {
+  Notification,
+  NotificationProps,
+} from '@app/entities/notification.entity';
+import { Replace } from '@helpers/replace';
 
 const makeSut = () => {
   type NotificationConstructorProps = Replace<
