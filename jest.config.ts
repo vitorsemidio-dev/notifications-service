@@ -1,7 +1,8 @@
+import { Config } from 'jest';
 import { pathsToModuleNameMapper } from 'ts-jest';
 import { compilerOptions } from './tsconfig.json';
 
-const jestConfig = {
+const jestConfig: Config = {
   moduleFileExtensions: ['js', 'json', 'ts'],
   rootDir: './',
   testRegex: '.*\\.spec\\.ts$',
