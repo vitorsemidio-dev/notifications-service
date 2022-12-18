@@ -2,25 +2,25 @@ import { NotificationsRepository } from '@app/repositories/notifications.reposit
 import { NotificationNotFoundError } from '@app/use-cases/errors/notification-not-found.error';
 import { Injectable } from '@nestjs/common';
 
-interface CancelNotificationRequest {
+interface UnreadNotificationRequest {
   notificationId: string;
 }
 
-type CancelNotificationResponse = void;
+type UnreadNotificationResponse = void;
 
 @Injectable()
-export class CancelNotification {
+export class UnreadNotification {
   constructor(
     private readonly notificationsRepository: NotificationsRepository,
   ) {}
   async execute({
     notificationId,
-  }: CancelNotificationRequest): Promise<CancelNotificationResponse> {
+  }: UnreadNotificationRequest): Promise<UnreadNotificationResponse> {
     const notification = await this.notificationsRepository.findById(
       notificationId,
     );
     if (!notification) throw new NotificationNotFoundError(notificationId);
-    notification.cancel();
+    notification.unread();
     await this.notificationsRepository.save(notification);
   }
 }

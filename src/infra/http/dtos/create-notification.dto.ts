@@ -5,7 +5,7 @@ export class CreateNotificationDto {
   category: string;
 
   @IsNotEmpty()
-  @Length(5, 240)
+  @Length(5, 255)
   content: string;
 
   @IsNotEmpty()

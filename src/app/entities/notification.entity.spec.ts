@@ -33,12 +33,30 @@ describe('Notification', () => {
     expect(notification.category).toBe('updated');
   });
 
-  it('should be able to set readAt', () => {
+  it('should be able to read', () => {
     const { notificationConstructorProps } = makeSut();
     const notification = new Notification(notificationConstructorProps);
     expect(notification.readAt).toBeUndefined();
-    notification.readAt = new Date();
+    notification.read();
     expect(notification.readAt).toEqual(expect.any(Date));
+  });
+
+  it('should be able to unread', () => {
+    const { notificationConstructorProps } = makeSut();
+    const notification = new Notification(notificationConstructorProps);
+    expect(notification.readAt).toBeUndefined();
+    notification.read();
+    expect(notification.readAt).toEqual(expect.any(Date));
+    notification.unread();
+    expect(notification.readAt).toBeNull();
+  });
+
+  it('should be able to cancel', () => {
+    const { notificationConstructorProps } = makeSut();
+    const notification = new Notification(notificationConstructorProps);
+    expect(notification.canceledAt).toBeUndefined();
+    notification.cancel();
+    expect(notification.canceledAt).toEqual(expect.any(Date));
   });
 
   it('should be able to set content', () => {
@@ -58,5 +76,11 @@ describe('Notification', () => {
     const { notificationConstructorProps } = makeSut();
     const notification = new Notification(notificationConstructorProps);
     expect(notification.createdAt).toBeDefined();
+  });
+
+  it('should be able to create notification with canceledAt undefined by default', () => {
+    const { notificationConstructorProps } = makeSut();
+    const notification = new Notification(notificationConstructorProps);
+    expect(notification.canceledAt).toBeUndefined();
   });
 });
