@@ -35,7 +35,7 @@ describe('Cancel Notification', () => {
     await notificationsRepository.create(notification);
     const sut = new CancelNotification(notificationsRepository);
     await sut.execute({
-      idNotification: notification.id,
+      notificationId: notification.id,
     });
     const notificationFound = await notificationsRepository.findById(
       notification.id,
@@ -49,7 +49,7 @@ describe('Cancel Notification', () => {
     const sut = new CancelNotification(notificationsRepository);
     await expect(() => {
       return sut.execute({
-        idNotification: notification.id,
+        notificationId: notification.id,
       });
     }).rejects.toThrow(NotificationNotFoundError);
   });

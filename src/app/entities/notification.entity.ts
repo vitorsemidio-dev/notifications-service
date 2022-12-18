@@ -1,6 +1,6 @@
+import { Content } from '@app/entities/content';
+import { Replace } from '@helpers/replace';
 import { randomUUID } from 'crypto';
-import { Replace } from 'src/helpers/replace';
-import { Content } from './content';
 
 export interface NotificationProps {
   category: string;
@@ -42,8 +42,11 @@ export class Notification {
   public get createdAt(): Date {
     return this.props.createdAt;
   }
-  set readAt(value: Date | null | undefined) {
-    this.props.readAt = value;
+  read() {
+    this.props.readAt = new Date();
+  }
+  unread() {
+    this.props.readAt = null;
   }
   public get readAt(): Date | null | undefined {
     return this.props.readAt;
