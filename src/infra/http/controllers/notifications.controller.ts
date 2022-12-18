@@ -1,5 +1,6 @@
 import { CancelNotification } from '@app/use-cases/cancel-notification.service';
 import { CountRecipientNotification } from '@app/use-cases/count-recipient-notification.service';
+import { GetRecipientNotification } from '@app/use-cases/get-recipient-notification.service';
 import { ReadNotification } from '@app/use-cases/read-notification.service';
 import { SendNotification } from '@app/use-cases/send-notification.service';
 import { UnreadNotification } from '@app/use-cases/unread-notification.service';
@@ -7,8 +8,10 @@ import { CancelNotificationResponseDto } from '@infra/http/dtos/cancel-notificat
 import { CountFromRecipientResponseDto } from '@infra/http/dtos/count-from-recipient-response.dto';
 import { CreateNotificationResponseDto } from '@infra/http/dtos/create-notification-response.dto';
 import { CreateNotificationDto } from '@infra/http/dtos/create-notification.dto';
+import { GetRecipientNotificationResponseDto } from '@infra/http/dtos/get-recipient-notification.dto';
 import { ReadNotificationResponseDto } from '@infra/http/dtos/read-notification-response.dto';
 import { UnreadNotificationResponseDto } from '@infra/http/dtos/unread-notification-response.dto';
+import { GetRecipientNotificationViewModel } from '@infra/http/view-models/get-recipient-notification.view-model';
 import { NotificationViewModel } from '@infra/http/view-models/notification.view-model';
 import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 
@@ -17,6 +20,7 @@ export class NotificationsController {
   constructor(
     private readonly cancelNotification: CancelNotification,
     private readonly countRecipientNotifications: CountRecipientNotification,
+    private readonly getRecipientNotifications: GetRecipientNotification,
     private readonly readNotification: ReadNotification,
     private readonly sendNotification: SendNotification,
     private readonly unreadNotification: UnreadNotification,
@@ -46,6 +50,17 @@ export class NotificationsController {
     return {
       count,
     };
+  }
+
+  @Get('from/:recipientId')
+  async fromRecipient(
+    @Param('recipientId') recipientId: string,
+  ): Promise<GetRecipientNotificationResponseDto> {
+    const { notifications } = await this.getRecipientNotifications.execute({
+      recipientId,
+    });
+
+    return GetRecipientNotificationViewModel.toHTTP(notifications);
   }
 
   @Patch(':id/cancel')
