@@ -1,11 +1,5 @@
-import { NotificationsRepository } from '@app/repositories/notifications.repository';
 import { SendNotification } from '@app/use-cases/send-notification.service';
-import { InMemoryNotificationsRepository } from '@test/repositories/in-memory-notifications.repository';
-
-const makeNotificationsRepository = (): NotificationsRepository => {
-  const notificationsRepository = new InMemoryNotificationsRepository();
-  return notificationsRepository;
-};
+import { makeNotificationsRepository } from '@test/factories/in-memory-notifications-repository.factory';
 
 describe('Send Notification', () => {
   it('should be able to send a notification', async () => {

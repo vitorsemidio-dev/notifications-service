@@ -1,4 +1,4 @@
-import { Content } from './content';
+import { Content } from '@app/entities/content';
 
 describe('Notification Content', () => {
   it('should throw an error if content length is greater than 255 characters', () => {
