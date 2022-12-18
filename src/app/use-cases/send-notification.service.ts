@@ -3,7 +3,7 @@ import { Notification } from '@app/entities/notification.entity';
 import { NotificationsRepository } from '@app/repositories/notifications.repository';
 import { Injectable } from '@nestjs/common';
 
-interface SendNotifiicationRequest {
+interface SendNotificationRequest {
   recipientId: string;
   content: string;
   category: string;
@@ -22,7 +22,7 @@ export class SendNotification {
     recipientId,
     content,
     category,
-  }: SendNotifiicationRequest): Promise<SendNotificationResponse> {
+  }: SendNotificationRequest): Promise<SendNotificationResponse> {
     const notification = new Notification({
       recipientId,
       content: new Content(content),
