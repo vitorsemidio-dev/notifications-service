@@ -17,6 +17,10 @@ export class InMemoryNotificationsRepository
     return this.data.find((n) => n.id === id) || null;
   }
 
+  async findManyByRecipientId(recipientId: string): Promise<Notification[]> {
+    return this.data.filter((n) => n.recipientId === recipientId);
+  }
+
   async save(notification: Notification): Promise<void> {
     const index = this.data.findIndex((n) => n.id === notification.id);
     if (index === -1) throw new Error('Notification not found');
