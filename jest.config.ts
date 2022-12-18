@@ -8,8 +8,8 @@ const jestConfig = {
   transform: {
     '^.+\\.(t|j)s$': 'ts-jest',
   },
-  collectCoverageFrom: ['**/*.(t|j)s'],
-  coverageDirectory: '../coverage',
+  collectCoverageFrom: ['<rootDir>/src/**/*.(t|j)s', '!<rootDir>/src/infra/**'],
+  coverageDirectory: './coverage/unit',
   testEnvironment: 'node',
   roots: ['<rootDir>'],
   modulePaths: [compilerOptions.baseUrl],

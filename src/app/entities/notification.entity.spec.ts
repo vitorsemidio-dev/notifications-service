@@ -1,49 +1,27 @@
 import { Content } from '@app/entities/content';
-import {
-  Notification,
-  NotificationProps,
-} from '@app/entities/notification.entity';
-import { Replace } from '@helpers/replace';
-
-const makeSut = () => {
-  type NotificationConstructorProps = Replace<
-    NotificationProps,
-    { createdAt?: Date }
-  >;
-  const notificationConstructorProps: NotificationConstructorProps = {
-    category: 'notification',
-    content: new Content('notification'),
-    recipientId: 'notification',
-  };
-  const notification = new Notification(notificationConstructorProps);
-  return { notification, notificationConstructorProps };
-};
+import { makeNotification } from '@test/factories/notification.factory';
 
 describe('Notification', () => {
   it('should be able to create a notification', () => {
-    const { notificationConstructorProps } = makeSut();
-    const notification = new Notification(notificationConstructorProps);
+    const notification = makeNotification();
     expect(notification).toBeDefined();
   });
 
   it('should be able to set category', () => {
-    const { notificationConstructorProps } = makeSut();
-    const notification = new Notification(notificationConstructorProps);
+    const notification = makeNotification();
     notification.category = 'updated';
     expect(notification.category).toBe('updated');
   });
 
   it('should be able to read', () => {
-    const { notificationConstructorProps } = makeSut();
-    const notification = new Notification(notificationConstructorProps);
+    const notification = makeNotification();
     expect(notification.readAt).toBeUndefined();
     notification.read();
     expect(notification.readAt).toEqual(expect.any(Date));
   });
 
   it('should be able to unread', () => {
-    const { notificationConstructorProps } = makeSut();
-    const notification = new Notification(notificationConstructorProps);
+    const notification = makeNotification();
     expect(notification.readAt).toBeUndefined();
     notification.read();
     expect(notification.readAt).toEqual(expect.any(Date));
@@ -52,35 +30,41 @@ describe('Notification', () => {
   });
 
   it('should be able to cancel', () => {
-    const { notificationConstructorProps } = makeSut();
-    const notification = new Notification(notificationConstructorProps);
+    const notification = makeNotification();
     expect(notification.canceledAt).toBeUndefined();
     notification.cancel();
     expect(notification.canceledAt).toEqual(expect.any(Date));
   });
 
   it('should be able to set content', () => {
-    const { notificationConstructorProps } = makeSut();
-    const notification = new Notification(notificationConstructorProps);
+    const notification = makeNotification();
     notification.content = new Content('updated');
     expect(notification.content.value).toBe('updated');
   });
 
   it('should be able to create notification with readAt undefined by default', () => {
-    const { notificationConstructorProps } = makeSut();
-    const notification = new Notification(notificationConstructorProps);
+    const notification = makeNotification();
     expect(notification.readAt).toBeUndefined();
   });
 
   it('should be able to create notification with createdAt defined by default', () => {
-    const { notificationConstructorProps } = makeSut();
-    const notification = new Notification(notificationConstructorProps);
+    const notification = makeNotification();
     expect(notification.createdAt).toBeDefined();
   });
 
   it('should be able to create notification with canceledAt undefined by default', () => {
-    const { notificationConstructorProps } = makeSut();
-    const notification = new Notification(notificationConstructorProps);
+    const notification = makeNotification();
     expect(notification.canceledAt).toBeUndefined();
+  });
+
+  it('should be able to create notification with id', () => {
+    const notification = makeNotification();
+    expect(notification.id).toBeDefined();
+  });
+
+  it('should be able to set id', () => {
+    const { id } = makeNotification();
+    const notification = makeNotification({ id });
+    expect(notification.id).toEqual(id);
   });
 });

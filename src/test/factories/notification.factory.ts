@@ -4,13 +4,16 @@ import {
   NotificationProps,
 } from '@app/entities/notification.entity';
 
-type Override = Partial<NotificationProps>;
+type Override = Partial<NotificationProps & { id: string }>;
 
 export function makeNotification(override: Override = {}) {
-  return new Notification({
-    category: 'social',
-    content: new Content('Nova solicitação de amizade!'),
-    recipientId: 'recipient-1',
-    ...override,
-  });
+  return new Notification(
+    {
+      category: 'social',
+      content: new Content('Nova solicitação de amizade!'),
+      recipientId: 'recipient-1',
+      ...override,
+    },
+    override.id,
+  );
 }
